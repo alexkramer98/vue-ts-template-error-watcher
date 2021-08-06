@@ -1,0 +1,24 @@
+{
+    "name": "vue-ts-template-error-watcher",
+    "version": "0.0.1",
+    "description": "Vue.js 2.x template watcher for typescript errors. Use this watcher next to the \"serve\" script.",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/alexkramer98/vue-ts-template-error-watcher"
+    },
+    "dependencies": {
+        "git-changed-files": "^1.0.0",
+        "node-watch": "^0.7.1",
+        "vue-type-check-hapyharshit": "^1.2.4"
+    },
+    "bin": {
+        "watch": "./index.js"
+    },
+    "keywords": [
+        "vue",
+        "watch",
+        "serve",
+        "typescript",
+        "template"
+    ]
+}
