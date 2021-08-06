@@ -5,15 +5,18 @@ const srcPath = process.argv[3]
 const BASE_PATH = basePath ?? require('path').resolve(__dirname + '/../..') + '/'
 const BASE_PATH_SRC = srcPath ?? BASE_PATH + 'src/'
 
-const { check } = require("vue-type-check-hapyharshit");
-const changedFiles = require('git-changed-files');
+const { check } = require("vue-type-check-hapyharshit")
 const watch = require('node-watch')
+const exec = require('util').promisify(require('child_process').exec)
+const EOL = require('os').EOL
 
 process.exit = () => {}
 
 async function getChangedVueFiles() {
-    const files = await changedFiles();
-    return files['unCommittedFiles'].filter(file => file.endsWith('.vue')).map(file => BASE_PATH + file)
+    try {
+        const { stdout } = await exec('git diff --name-only --diff-filter=ACMRTUXB | grep -E "(.vue$)"')
+        return stdout.split(EOL).filter(fileName => fileName).map(fileName => BASE_PATH + fileName)
+    } catch (error){}
 }
 
 async function checkFiles(files) {
@@ -28,6 +31,9 @@ async function checkFiles(files) {
 
 async function checkChangedFiles() {
     const files = await getChangedVueFiles()
+    if (!files) {
+        return
+    }
     await checkFiles(files)
 }
 
