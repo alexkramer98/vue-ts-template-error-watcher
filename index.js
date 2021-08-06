@@ -1,5 +1,9 @@
-const BASE_PATH = '/home/alex/PhpstormProjects/koopmans-app/';
-const BASE_PATH_SRC = BASE_PATH + 'src/'
+#!/usr/bin/env node
+const basePath = process.argv[2]
+const srcPath = process.argv[3]
+
+const BASE_PATH = basePath ?? require('path').resolve(__dirname + '/../..') + '/'
+const BASE_PATH_SRC = srcPath ?? BASE_PATH + 'src/'
 
 const { check } = require("vue-type-check-hapyharshit");
 const changedFiles = require('git-changed-files');
