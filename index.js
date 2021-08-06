@@ -32,6 +32,7 @@ async function checkFiles(files) {
 async function checkChangedFiles() {
     const files = await getChangedVueFiles()
     if (!files) {
+        console.log('No files to process.')
         return
     }
     await checkFiles(files)
